@@ -19,7 +19,14 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    res.status(200).json({ reply: data.choices[0].message.content });
+
+    // Limpiar la respuesta de la IA
+    let reply = data.choices[0].message.content || "No tengo respuesta.";
+
+    // Eliminar etiquetas [ASSISTANT], [OUT], etc.
+    reply = reply.replace(/\[.*?\]/g, '').trim();
+
+    res.status(200).json({ reply });
   } catch (error) {
     console.error("Error en la IA:", error.message);
     res.status(500).json({ error: 'Error interno del servidor' });

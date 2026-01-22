@@ -28,7 +28,7 @@ Máximo 180 palabras. Sé cinematográfico.`;
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "qwen/qwen2.5-vl-7b-instruct"
+        model: "qwen/qwen2.5-vl-7b-instruct",
         messages: [
           { role: "user", content: systemPrompt },
           { role: "assistant", content: "Entendido." },

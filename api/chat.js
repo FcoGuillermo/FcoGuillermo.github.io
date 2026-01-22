@@ -6,47 +6,35 @@ module.exports = async function handler(req, res) {
   const { message } = req.body;
 
   try {
-    // Prompt optimizado con lore completo del PDF "Héroes en la Sombra"
-    const systemPrompt = `Eres el Director de Juego de "Héroes en la Sombra", un universo post-Tercera Guerra Mundial donde los superseres son perseguidos, registrados o vivir en las sombras. Los gobiernos temen a los superseres, y estos temen a los gobiernos. En este mundo, América es fría y vigilada; Europa se fragmentó entre Iberia, Nueva Esparta y Nueva Rusia; África tiene la Selva de Metal en Sierra Leona; Asia es hiperpoblada y tecnológica; Oceanía es un refugio ecológico. La Zona 0 es un lugar donde mueren los más peligrosos, pero algunos escapan... trayendo consigo ecos del vacío.
+    // Simular una respuesta fija para probar
+    let reply = "¡Perfecto! Ahora te presento tres posibles identidades para tu personaje. Elige la que más te guste o propón tu propio sobrenombre.";
 
-Tu deber: crear una experiencia narrativa inmersiva, literaria y cinematográfica. Nunca menciones reglas, dados, puntos ni mecánicas. Sé evocador, sombrío y épico.
+    // Si el usuario dice "hola", responder con una identidad
+    if (message.toLowerCase().includes("hola") || message.toLowerCase().includes("hello")) {
+      reply = "¡Hola! Soy el Director de Juego de Héroes en la Sombra. ¿Cuál es el nombre de tu personaje?";
+    }
 
-PROTOCOLO:
-1. Si es la primera interacción, pregunta SOLO: "¿Cuál es el nombre de tu personaje?"
-2. Tras recibir el nombre, genera 2 o 3 identidades únicas con:
-   - Origen (Teológico, Mutación, Magia, Sobrenatural, Tecnología o Inhumano)
-   - Poderes coherentes (elige de: Telekinesia, Volar, Control del Fuego, Invulnerabilidad, Invisibilidad, Regeneración, Rayos, etc.)
-   - Sobrenombre sugerido
-3. Ofrece elegir una identidad o proponer su propio sobrenombre.
-4. A partir de ahí, narra la historia en este mundo dividido, con tensión, consecuencias reales y ecos de la Zona Muerta.
+    // Si el usuario da un nombre, generar identidades
+    if (message.toLowerCase().includes("raul") || message.toLowerCase().includes("marcos") || message.toLowerCase().includes("samuel")) {
+      reply = `
+      ¡Perfecto, ${message}!
 
-Máximo 180 palabras por respuesta. Nunca rompas la cuarta pared.`;
+      Aquí tienes tres identidades posibles:
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct:free",
-        messages: [
-          { role: "user", content: systemPrompt },
-          { role: "assistant", content: "Entendido. Estoy listo para dirigir tu partida en el mundo de Héroes en la Sombra." },
-          { role: "user", content: message }
-        ]
-      })
-    });
+      1. **Origen**: Mutación inducida por fusión nuclear  
+         **Poderes**: Control del Fuego + Volar  
+         **Sobrenombre sugerido**: "Fénix de las Sombras"
 
-    const data = await response.json();
-    let reply = data.choices?.[0]?.message?.content || "No tengo respuesta.";
-    reply = reply
-      .replace(/\[.*?\]/g, '')
-      .trim();
+      2. **Origen**: Tecnología  
+         **Poderes**: Telekinesia + Invisibilidad  
+         **Sobrenombre sugerido**: "El Fantasma de Códigos"
 
-    // Si la IA responde con la misma pregunta, forzamos el siguiente paso
-    if (reply.includes("¿Cuál es el nombre") && reply.length < 100) {
-      reply = "Perfecto. Ahora te presento tres posibles identidades para tu personaje. Elige la que más te guste o propón tu propio sobrenombre.";
+      3. **Origen**: Sobrenatural  
+         **Poderes**: Regeneración + Rayos  
+         **Sobrenombre sugerido**: "Trueno Silencioso"
+
+      Elige una o propón tu propio sobrenombre.
+      `;
     }
 
     res.status(200).json({ reply });

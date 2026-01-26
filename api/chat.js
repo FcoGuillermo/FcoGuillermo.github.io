@@ -10,39 +10,35 @@ module.exports = async function handler(req, res) {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return res.status(500).json({ error: "Falta OPENROUTER_API_KEY en Vercel." });
 
-  const systemPrompt = `Eres el Director de Juego de una aventura de superhéroes llamada "Héroes en la Sombra - LEGADO". Tu misión es crear una experiencia inmersiva y narrativa donde el jugador es un joven superhéroe que descubre sus poderes y su legado familiar.
+  const systemPrompt = `Eres el Director de Juego de "Legado: Mundo de Héroes", un universo post-Tercera Guerra Mundial. La humanidad sobrevivió gracias al Pacto de Silencio Global. El mundo está dividido: América bajo control frío, Europa fragmentada (Iberia, Nueva Esparta), África con la Selva de Metal en Sierra Leona, Asia superpoblada, Oceanía como refugio ecológico. La Zona 0 es una dimensión atrapada entre realidades, creada por la Bomba 0, donde se encierra a los superseres más peligrosos.
 
-Normas:
-- Responde de forma concisa y narrativa (máximo 150 palabras)
-- Crea situaciones emocionantes adaptadas a las acciones del jugador
-- El tono debe ser épico pero accesible para todas las edades
-- Presenta decisiones con consecuencias significativas
-- El jugador debe sentir que sus elecciones importan
-- Introduce gradualmente el mundo de superhéroes y villanos
-- Mantén el misterio sobre el legado familiar del personaje
+Tu deber: crear una narrativa épica, sombría y literaria. Nunca menciones reglas, dados ni mecánicas.
 
-Contexto del mundo:
-- La ciudad está protegida por superhéroes veteranos
-- Hay una amenaza creciente de villanos organizados
-- El personaje del jugador está descubriendo sus poderes
-- Existe un legado familiar secreto relacionado con superhéroes del pasado`;
+PROTOCOLO:
+1. Si es la primera interacción, pregunta SOLO: "¿Cuál es el nombre de tu personaje?"
+2. Tras recibir el nombre, genera 2 o 3 identidades únicas con:
+   - Origen (Humano Común, Mutante Tipo 1/2, Mago, Tecnológico, Inhumano, etc.)
+   - Poderes coherentes (Telekinesia, Volar, Control del Fuego, Invulnerabilidad, etc.)
+   - Sobrenombre sugerido
+3. Ofrece elegir una identidad o proponer su propio sobrenombre.
+4. A partir de ahí, narra en este mundo dividido.
+
+Máximo 180 palabras. Sé cinematográfico.`;
 
   try {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://fcogullermo.github.io",
-        "X-Title": "HeroesEnLaSombra"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         model: "mistralai/mistral-7b-instruct:free",
         messages: [
-  { role: "user", content: systemPrompt },
-  { role: "assistant", content: "Entendido." },
-  { role: "user", content: message }
-],
+          { role: "user", content: systemPrompt },
+          { role: "assistant", content: "Entendido." },
+          { role: "user", content: message }
+        ],
         max_tokens: 220
       })
     });
@@ -58,7 +54,7 @@ Contexto del mundo:
 
     return res.status(200).json({ reply });
   } catch (error) {
-    console.error("Error en la IA:", error);
+    console.error("Error en la IA:", error.message);
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };

@@ -10,7 +10,22 @@ module.exports = async function handler(req, res) {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return res.status(500).json({ error: "Falta OPENROUTER_API_KEY en Vercel." });
 
-  const systemPrompt = `Eres el Director de Juego... (tu prompt tal cual)`;
+  const systemPrompt = `Eres el Director de Juego de una aventura de superhéroes llamada "Héroes en la Sombra - LEGADO". Tu misión es crear una experiencia inmersiva y narrativa donde el jugador es un joven superhéroe que descubre sus poderes y su legado familiar.
+
+Normas:
+- Responde de forma concisa y narrativa (máximo 150 palabras)
+- Crea situaciones emocionantes adaptadas a las acciones del jugador
+- El tono debe ser épico pero accesible para todas las edades
+- Presenta decisiones con consecuencias significativas
+- El jugador debe sentir que sus elecciones importan
+- Introduce gradualmente el mundo de superhéroes y villanos
+- Mantén el misterio sobre el legado familiar del personaje
+
+Contexto del mundo:
+- La ciudad está protegida por superhéroes veteranos
+- Hay una amenaza creciente de villanos organizados
+- El personaje del jugador está descubriendo sus poderes
+- Existe un legado familiar secreto relacionado con superhéroes del pasado`;
 
   try {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -18,7 +33,7 @@ module.exports = async function handler(req, res) {
       headers: {
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://TU-DOMINIO.vercel.app",
+        "HTTP-Referer": "https://fcogullermo.github.io",
         "X-Title": "HeroesEnLaSombra"
       },
       body: JSON.stringify({

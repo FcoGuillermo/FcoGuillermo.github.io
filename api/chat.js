@@ -39,9 +39,10 @@ Contexto del mundo:
       body: JSON.stringify({
         model: "mistralai/mistral-7b-instruct:free",
         messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: message }
-        ],
+  { role: "user", content: systemPrompt },
+  { role: "assistant", content: "Entendido." },
+  { role: "user", content: message }
+],
         max_tokens: 220
       })
     });

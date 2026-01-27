@@ -64,6 +64,7 @@ body{
   justify-content:center;
   align-items:center;
   color:white;
+  padding: 20px;
 }
 #logo{
   max-width:320px;
@@ -99,6 +100,7 @@ body{
   inset:0;
   display:none;
   padding:30px;
+  overflow-y: auto;
 }
 .app-container{
   max-width:1000px;
@@ -148,6 +150,134 @@ body{
   border-radius:10px;
   cursor:pointer;
   box-shadow:3px 3px 0 var(--black);
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  /* Pantallas de tablet y móviles */
+  
+  .side-buttons {
+    right: 10px;
+    gap: 10px;
+  }
+  
+  .side-buttons button {
+    width: 60px;
+    height: 60px;
+  }
+  
+  #logo {
+    max-width: 250px;
+    width: 90%;
+  }
+  
+  .card {
+    width: 90%;
+    max-width: 300px;
+    padding: 25px;
+  }
+  
+  .card button {
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  #app {
+    padding: 15px;
+  }
+  
+  .app-container {
+    height: calc(100vh - 30px);
+    border-radius: 12px;
+  }
+  
+  .app-header {
+    padding: 12px;
+    font-size: 20px;
+  }
+  
+  .input-area {
+    padding: 10px;
+    flex-direction: column;
+  }
+  
+  .input-area input {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .input-area button {
+    padding: 12px;
+    font-size: 16px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Pantallas de móviles pequeños */
+  
+  .side-buttons {
+    right: 5px;
+    gap: 8px;
+  }
+  
+  .side-buttons button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  #logo {
+    max-width: 200px;
+    width: 95%;
+  }
+  
+  .card {
+    width: 95%;
+    padding: 20px 15px;
+  }
+  
+  .card p {
+    font-size: 14px;
+  }
+  
+  .card button {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  #app {
+    padding: 10px;
+  }
+  
+  .app-container {
+    height: calc(100vh - 20px);
+    border-radius: 8px;
+  }
+  
+  .app-header {
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  .chat {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .input-area {
+    padding: 8px;
+  }
+  
+  .input-area input {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .input-area button {
+    padding: 10px;
+    font-size: 14px;
+  }
 }
 </style>
 </head>
@@ -155,16 +285,16 @@ body{
 
 <div class="side-buttons">
   <button>
-    <img src="https://via.placeholder.com/70/92c952?text=Libro" alt="Libro">
+    <img src="img/boton-libro.png" alt="Libro">
   </button>
   <button onclick="window.location.href='https://supersia-legado.vercel.app/'">
-    <img src="https://via.placeholder.com/70/004080?text=Figuras" alt="Figuras">
+    <img src="img/boton-figuras.png" alt="Figuras">
   </button>
   <button onclick="window.location.href='https://fcoguillermo.github.io/politica-privacidad/'">
-    <img src="https://via.placeholder.com/70/800000?text=Privacidad" alt="Privacidad">
+    <img src="img/boton-privacidad.png" alt="Privacidad">
   </button>
   <button onclick="window.open('https://www.youtube.com/@ImprimeyPinta', '_blank')">
-    <img src="https://via.placeholder.com/70/ff0000?text=YouTube" alt="YouTube">
+    <img src="img/boton-youtube.png" alt="YouTube">
   </button>
 </div>
 

@@ -129,6 +129,7 @@ body{
   padding:15px;
   overflow-y:auto;
   border:none;
+  color: #000; /* TEXTO NEGRO EN EL CHAT */
 }
 .input-area{
   display:flex;
@@ -262,6 +263,7 @@ body{
   .chat {
     padding: 10px;
     font-size: 14px;
+    color: #000; /* TEXTO NEGRO EN EL CHAT (móvil) */
   }
   
   .input-area {
@@ -358,6 +360,7 @@ function addMessage(text, isUser = false) {
   msg.style.maxWidth = "80%";
   msg.style.wordBreak = "break-word";
   msg.style.lineHeight = "1.4";
+  msg.style.color = "#000"; /* TEXTO NEGRO EN LOS MENSAJES */
   if (isUser) {
     msg.style.backgroundColor = "#ffecec";
     msg.style.marginLeft = "auto";

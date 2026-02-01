@@ -157,11 +157,14 @@ body{
   white-space: nowrap;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE (BOTONES EN EL FONDO) ===== */
 @media (max-width: 768px) {
   .side-buttons {
     right: 10px;
     gap: 10px;
+    top: auto;
+    bottom: 15px;
+    transform: none;
   }
   
   .side-buttons button {
@@ -220,6 +223,9 @@ body{
   .side-buttons {
     right: 5px;
     gap: 8px;
+    top: auto;
+    bottom: 15px;
+    transform: none;
   }
   
   .side-buttons button {
@@ -263,7 +269,7 @@ body{
   .chat {
     padding: 10px;
     font-size: 14px;
-    color: #000; /* TEXTO NEGRO EN EL CHAT (móvil) */
+    color: #000;
   }
   
   .input-area {
